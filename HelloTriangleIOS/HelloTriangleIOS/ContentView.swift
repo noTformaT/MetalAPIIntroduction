@@ -34,30 +34,6 @@ struct ContentView: UIViewRepresentable {
     func updateUIView(_ uiView: UIViewType, context: Context) {
         
     }
-    
-//    func makeCoordinator() -> Renderer {
-//        Renderer(self)
-//    }
-//
-//    func makeUIView(context: UIViewRepresentableContext<ContentView>) -> some MTKView {
-//        let mtkView = MTKView()
-//        mtkView.delegate = context.coordinator
-//        mtkView.preferredFramesPerSecond = 60
-//        mtkView.enableSetNeedsDisplay = true
-//
-//        if let metalDevice = MTLCreateSystemDefaultDevice() {
-//            mtkView.device = metalDevice
-//        }
-//
-//        mtkView.framebufferOnly = false
-//        mtkView.drawableSize = mtkView.frame.size
-//
-//        return mtkView
-//    }
-//
-//    func updateUIView(_ uiView: MTKView, context: UIViewRepresentableContext<ContentView>) {
-//
-//    }
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -10,11 +10,13 @@ using namespace metal;
 
 #include "definitions.h"
 
+// Basic Fragment Discription class
 struct Fragment {
     float4 position [[position]];
     float4 color;
 };
 
+// Vertex Shader
 vertex Fragment vertexShader(const device Vertex *vertexArray [[buffer(0)]], unsigned int vid [[vertex_id]]) {
     Vertex input = vertexArray[vid];
     
@@ -25,6 +27,7 @@ vertex Fragment vertexShader(const device Vertex *vertexArray [[buffer(0)]], uns
     return output;
 }
 
+// Fragment Shader
 fragment float4 fragmentShader(Fragment input [[stage_in]]) {
     return input.color;
 }

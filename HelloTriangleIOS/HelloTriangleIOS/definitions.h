@@ -10,6 +10,7 @@
 
 #include <simd/simd.h>
 
+// Basic Vertex description class
 struct Vertex {
     vector_float2 position;
     vector_float4 color;
