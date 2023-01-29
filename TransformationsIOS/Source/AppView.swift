@@ -9,6 +9,6 @@ import SwiftUI
 
 struct AppView: View {
     var body: some View {
-        ContentView().frame(width: 800, height: 600)
+        ContentView()
     }
 }

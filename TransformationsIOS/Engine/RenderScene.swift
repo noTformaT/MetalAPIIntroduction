@@ -7,10 +7,12 @@
 
 import Foundation
 
+// Main Scene Class
+
 class RenderScene {
     
     var player: Camera
-    var triangles: [SimpleComponent]
+    var actors: [TransformComponent]
     
     init() {
         player = Camera(
@@ -18,8 +20,8 @@ class RenderScene {
             eulers: [0.0, 0.0, 0.0]
         )
         
-        triangles = [
-            SimpleComponent(
+        actors = [
+            TransformComponent(
                 position: [0.0, 0.0, 5.0],
                 eulers: [0.0, 0.0, 0.0]
             )
@@ -30,12 +32,9 @@ class RenderScene {
         
         player.updateVectors()
         
-        for triangle in triangles {
+        for act in actors {
             
-            triangle.eulers.y += 1
-            if triangle.eulers.y > 360 {
-                triangle.eulers.y -= 360
-            }
+            act.addRotation(rotaion: [0.0, 1.0, 0.0])
             
         }
         

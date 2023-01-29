@@ -7,6 +7,8 @@
 
 import Foundation
 
+// Main Camera Class
+
 class Camera {
     
     var position: vector_float3

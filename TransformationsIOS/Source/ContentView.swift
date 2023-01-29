@@ -10,7 +10,6 @@ import MetalKit
 
 struct ContentView: UIViewRepresentable {
     
-    
     func makeCoordinator() -> Renderer {
         Renderer(self)
     }

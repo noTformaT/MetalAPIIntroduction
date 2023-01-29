@@ -74,7 +74,7 @@ class Renderer: NSObject, MTKViewDelegate {
         
         // Create Render Pass Descriptor
         let renderPassDescriptor = view.currentRenderPassDescriptor
-        renderPassDescriptor?.colorAttachments[0].clearColor = MTLClearColor(red: 0, green: 0.5, blue: 0.5, alpha: 1.0) // set clear clor
+        renderPassDescriptor?.colorAttachments[0].clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0) // set clear clor
         renderPassDescriptor?.colorAttachments[0].loadAction = .clear                                                   // set load action - clear
         renderPassDescriptor?.colorAttachments[0].storeAction = .store                                                  // set store action - store
         
@@ -89,18 +89,23 @@ class Renderer: NSObject, MTKViewDelegate {
             up: scene.player.up
         )
         
+        // Calc aspect ration
+        let width = view.drawableSize.width
+        let height = view.drawableSize.height
+        let asp:Float = Float(height / width)
+        
         cameraData.projection = Matrix44.create_perspective_projection(
             fovy: 45,
-            aspect: 800.0/600.0,
+            aspect: asp,
             near: 0.1,
             far: 20
         )
         
         renderEncoder?.setVertexBytes(&cameraData, length: MemoryLayout<CameraParameters>.stride, index: 2)
         
-        for triangle in scene.triangles {
-            var modelMatrix: matrix_float4x4 = Matrix44.create_from_rotation(eulers: triangle.eulers)
-            modelMatrix = Matrix44.create_from_translation(translation: triangle.position) * modelMatrix
+        for act in scene.actors {
+            var modelMatrix: matrix_float4x4 = Matrix44.create_from_rotation(eulers: act.eulers)
+            modelMatrix = Matrix44.create_from_translation(translation: act.position) * modelMatrix
             
             
             renderEncoder?.setVertexBytes(&modelMatrix, length: MemoryLayout<matrix_float4x4>.stride, index: 1)

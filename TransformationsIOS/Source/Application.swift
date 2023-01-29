@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct HelloTriangleIOSApp: App {
+struct Application: App {
     var body: some Scene {
         WindowGroup {
             AppView()
