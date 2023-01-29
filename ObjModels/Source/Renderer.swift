@@ -20,7 +20,8 @@ class Renderer: NSObject, MTKViewDelegate {
     var metalCommandQueue: MTLCommandQueue!
     let pipelineState: MTLRenderPipelineState
     var scene: RenderScene
-    let mesh: TriangleMesh
+    let mesh: LoadMesh
+    var allocator: MTKMeshBufferAllocator
     
     init (_ parent: ContentView) {
         self.parent = parent
@@ -32,13 +33,18 @@ class Renderer: NSObject, MTKViewDelegate {
         
         // Create Metal Command Queue
         self.metalCommandQueue = metalDevice.makeCommandQueue()
+        self.allocator = MTKMeshBufferAllocator(device: metalDevice)
+        
+        // Create triangle Mesh
+        mesh = LoadMesh(device: metalDevice, allocator: allocator, fileName: "monkey_hd")
         
         // Create Metal Pipeline Descriptor
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
         let library = metalDevice.makeDefaultLibrary()                                      // get Metal library from .metal file
-        pipelineDescriptor.vertexFunction = library?.makeFunction(name: "vertexShader")     // get vertex shader function
+        pipelineDescriptor.vertexFunction = library?.makeFunction(name: "vertexShaderLoadMesh")     // get vertex shader function
         pipelineDescriptor.fragmentFunction = library?.makeFunction(name: "fragmentShader") // get fragment shader function
         pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm                    // use pixel format
+        pipelineDescriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(mesh.metalMesh.vertexDescriptor)
         
         // Create Metal Pipeline State
         do {
@@ -46,9 +52,6 @@ class Renderer: NSObject, MTKViewDelegate {
         } catch {
             fatalError("Fail to create pipeline state")
         }
-        
-        // Create triangle Mesh
-        mesh = TriangleMesh(metalDevice: metalDevice)
         
         // Create Render Scene
         scene = RenderScene()
@@ -80,6 +83,7 @@ class Renderer: NSObject, MTKViewDelegate {
         
         // Make Metal Render Command Encoder
         let renderEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: renderPassDescriptor!)
+        renderEncoder?.setRenderPipelineState(pipelineState)
         
         // Make Camera Parameters
         var cameraData: CameraParameters = CameraParameters()
@@ -103,16 +107,31 @@ class Renderer: NSObject, MTKViewDelegate {
         
         renderEncoder?.setVertexBytes(&cameraData, length: MemoryLayout<CameraParameters>.stride, index: 2)
         
+//        let depthStencilDescriptor = MTLDepthStencilDescriptor()
+//        depthStencilDescriptor.depthCompareFunction = .less
+//        depthStencilDescriptor.isDepthWriteEnabled = true
+//        
+//        let depthStencilState = metalDevice.makeDepthStencilState(descriptor: depthStencilDescriptor)
+//        renderEncoder?.setDepthStencilState(depthStencilState)
+        
+        renderEncoder?.setCullMode(.back)
+        
+        renderEncoder?.setVertexBuffer(mesh.metalMesh.vertexBuffers[0].buffer, offset: 0, index: 0)
         for act in scene.actors {
             var modelMatrix: matrix_float4x4 = Matrix44.create_from_rotation(eulers: act.eulers)
             modelMatrix = Matrix44.create_from_translation(translation: act.position) * modelMatrix
             
-            
             renderEncoder?.setVertexBytes(&modelMatrix, length: MemoryLayout<matrix_float4x4>.stride, index: 1)
             
-            renderEncoder?.setRenderPipelineState(pipelineState)
-            renderEncoder?.setVertexBuffer(mesh.vertexBuffer, offset: 0, index: 0)
-            renderEncoder?.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
+            for submesh in mesh.metalMesh.submeshes {
+                renderEncoder?.drawIndexedPrimitives(
+                    type: .triangle,
+                    indexCount: submesh.indexCount,
+                    indexType: submesh.indexType,
+                    indexBuffer: submesh.indexBuffer.buffer,
+                    indexBufferOffset: submesh.indexBuffer.offset
+                )
+            }
         }
         
         // Set present mode and end encoding
