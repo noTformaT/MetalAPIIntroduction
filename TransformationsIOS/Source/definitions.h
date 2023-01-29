@@ -12,8 +12,13 @@
 
 // Basic Vertex description class
 struct Vertex {
-    vector_float2 position;
+    vector_float3 position;
     vector_float4 color;
+};
+
+struct CameraParameters {
+    matrix_float4x4 view;
+    matrix_float4x4 projection;
 };
 
 #endif /* definitions_h */

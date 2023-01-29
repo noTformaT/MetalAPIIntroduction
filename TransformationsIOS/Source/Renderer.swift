@@ -19,7 +19,8 @@ class Renderer: NSObject, MTKViewDelegate {
     var metalDevice: MTLDevice!
     var metalCommandQueue: MTLCommandQueue!
     let pipelineState: MTLRenderPipelineState
-    let vertexBuffer: MTLBuffer
+    var scene: RenderScene
+    let mesh: TriangleMesh
     
     init (_ parent: ContentView) {
         self.parent = parent
@@ -39,22 +40,18 @@ class Renderer: NSObject, MTKViewDelegate {
         pipelineDescriptor.fragmentFunction = library?.makeFunction(name: "fragmentShader") // get fragment shader function
         pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm                    // use pixel format
         
-        // Create vertices
-        let vertices = [
-            Vertex(position: [-1, -1], color: [1, 0, 0, 1]),
-            Vertex(position: [ 1, -1], color: [0, 1, 0, 1]),
-            Vertex(position: [ 0, 1], color: [0, 0, 1, 1]),
-        ]
-        
-        // Move vertices to vertex buffer
-        vertexBuffer = metalDevice.makeBuffer(bytes: vertices, length: vertices.count * MemoryLayout<Vertex>.stride, options: [])!
-        
         // Create Metal Pipeline State
         do {
             try pipelineState = metalDevice.makeRenderPipelineState(descriptor: pipelineDescriptor)
         } catch {
             fatalError("Fail to create pipeline state")
         }
+        
+        // Create triangle Mesh
+        mesh = TriangleMesh(metalDevice: metalDevice)
+        
+        // Create Render Scene
+        scene = RenderScene()
         
         super.init()
     }
@@ -64,6 +61,10 @@ class Renderer: NSObject, MTKViewDelegate {
     }
     
     func draw(in view: MTKView) {
+        // update scene
+        
+        scene.update()
+        
         guard let drawable = view.currentDrawable else {
             return
         }
@@ -79,11 +80,35 @@ class Renderer: NSObject, MTKViewDelegate {
         
         // Make Metal Render Command Encoder
         let renderEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: renderPassDescriptor!)
-        renderEncoder?.setRenderPipelineState(pipelineState)                                            // set Render Pipeline State
-        renderEncoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)                               // set Vertex Buffer
         
-        // Draw primitives - triangles
-        renderEncoder?.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
+        // Make Camera Parameters
+        var cameraData: CameraParameters = CameraParameters()
+        cameraData.view = Matrix44.create_lookat(
+            eye: scene.player.position,
+            target: scene.player.position + scene.player.forwards,
+            up: scene.player.up
+        )
+        
+        cameraData.projection = Matrix44.create_perspective_projection(
+            fovy: 45,
+            aspect: 800.0/600.0,
+            near: 0.1,
+            far: 20
+        )
+        
+        renderEncoder?.setVertexBytes(&cameraData, length: MemoryLayout<CameraParameters>.stride, index: 2)
+        
+        for triangle in scene.triangles {
+            var modelMatrix: matrix_float4x4 = Matrix44.create_from_rotation(eulers: triangle.eulers)
+            modelMatrix = Matrix44.create_from_translation(translation: triangle.position) * modelMatrix
+            
+            
+            renderEncoder?.setVertexBytes(&modelMatrix, length: MemoryLayout<matrix_float4x4>.stride, index: 1)
+            
+            renderEncoder?.setRenderPipelineState(pipelineState)
+            renderEncoder?.setVertexBuffer(mesh.vertexBuffer, offset: 0, index: 0)
+            renderEncoder?.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
+        }
         
         // Set present mode and end encoding
         renderEncoder?.endEncoding()
