@@ -6,17 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
 
 // Main Scene Class
 
-class RenderScene {
+class RenderScene:ObservableObject {
     
-    var player: Camera
-    var actors: [TransformComponent]
+    @Published var player: Camera
+    @Published var actors: [TransformComponent]
     
     init() {
         player = Camera(
             position: [0, 0.0, 0.0],
+            // roll, pitch, yaw
             eulers: [0.0, 0.0, 0.0]
         )
         
@@ -38,5 +40,15 @@ class RenderScene {
             
         }
         
+    }
+    
+    func spinCamera(offset: CGSize) {
+        let dTheta: Float = Float(offset.width)
+        let dPhi: Float = Float(offset.height)
+        
+        player.eulers.y += 0.005 * dPhi
+        player.eulers.z -= 0.005 * dTheta
+        
+        player.updateVectors()
     }
 }

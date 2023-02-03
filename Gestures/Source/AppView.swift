@@ -8,7 +8,15 @@
 import SwiftUI
 
 struct AppView: View {
+    
+    @EnvironmentObject var gameScene: RenderScene
+    
     var body: some View {
         ContentView()
+            .gesture(
+                DragGesture().onChanged { gesture in
+                    gameScene.spinCamera(offset: gesture.translation)
+                }
+            )
     }
 }

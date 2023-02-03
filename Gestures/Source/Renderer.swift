@@ -23,7 +23,7 @@ class Renderer: NSObject, MTKViewDelegate {
     let mesh: LoadMesh
     var allocator: MTKMeshBufferAllocator
     
-    init (_ parent: ContentView) {
+    init (_ parent: ContentView, scene: RenderScene) {
         self.parent = parent
         
         // Create Metal Device
@@ -54,7 +54,7 @@ class Renderer: NSObject, MTKViewDelegate {
         }
         
         // Create Render Scene
-        scene = RenderScene()
+        self.scene = scene
         
         super.init()
     }
