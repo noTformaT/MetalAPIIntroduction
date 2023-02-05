@@ -1,0 +1,99 @@
+# Blender MTL File: 'None'
+# Material Count: 8
+
+newmtl Cloth
+Ns 17.647057
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.000000
+illum 9
+map_Bump /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/NormalMap,textures@!actors!Playable!Crash!CrashCloth_N`tga,111.png
+map_Kd /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!actors!Playable!Crash!CrashCloth_.png
+
+newmtl ClothShoes
+Ns 17.647057
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.000000
+illum 9
+map_Bump /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/NormalMap,textures@!actors!Playable!Crash!CrashCloth_N`tga,111.png
+map_Kd /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!actors!Playable!Crash!CrashCloth_.png
+
+newmtl ClothShorts
+Ns 17.647057
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.000000
+illum 9
+map_Bump /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/NormalMap,textures@!actors!Playable!Crash!CrashCloth_N`tga,111.png
+map_Kd /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!actors!Playable!Crash!CrashCloth_.png
+
+newmtl EyePupil
+Ns 17.647057
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.000000
+illum 9
+map_Bump /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/NormalMap,textures@!actors!Playable!Crash!CrashEyes_N`tga,111.png
+map_Kd /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!actors!Playable!Crash!CrashEyePup.png
+
+newmtl Eyes
+Ns 17.647057
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.000000
+illum 9
+map_Bump /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/NormalMap,textures@!actors!Playable!Crash!CrashEyes_N`tga,111.png
+map_Kd /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!actors!Playable!Crash!CrashEyes_{.png
+
+newmtl Fur
+Ns 17.647057
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.000000
+illum 9
+map_Bump /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/NormalMap,textures@!actors!Playable!Crash!CrashFur_N`tga,111.png
+map_Kd /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!actors!Playable!Crash!CrashFur_{C.png
+
+newmtl Hair
+Ns 17.647057
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.000000
+illum 9
+map_Bump /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/NormalMap,textures@!actors!Playable!Crash!CrashHair_N`tga,111.png
+map_Kd /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!{actors!Playable!Crash!CrashHair_.png
+map_d /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!{actors!Playable!Crash!CrashHair_.png
+
+newmtl Skin
+Ns 17.647057
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.000000
+illum 9
+map_Bump /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/NormalMap,textures@!actors!Playable!Crash!CrashFur_N`tga,111.png
+map_Kd /Users/captain/Downloads/crash-bandicoot/source/Crash Bandicoot/CavityBakedColorMap,textures@!actors!Playable!Crash!CrashFur_{C.png
