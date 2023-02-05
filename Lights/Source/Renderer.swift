@@ -45,7 +45,7 @@ class Renderer: NSObject, MTKViewDelegate {
         material = Material(device: metalDevice, allocator: self.materialLoader, fileName: "ColorChecker")
         
         // Create triangle Mesh
-        mesh = LoadMesh(device: metalDevice, allocator: allocator, fileName: "monkey_hd")
+        mesh = LoadMesh(device: metalDevice, allocator: allocator, fileName: "crash")
         
         // Create Metal Pipeline Descriptor
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
@@ -118,8 +118,16 @@ class Renderer: NSObject, MTKViewDelegate {
             far: 20
         )
         
+        cameraData.position = scene.player.position!
+        
         // Set Vertex Buffer
         renderEncoder?.setVertexBytes(&cameraData, length: MemoryLayout<CameraParameters>.stride, index: 2)
+        
+        // Set Directional/Sun Light Data
+        var sunData: DirectionLight = DirectionLight()
+        sunData.color = scene.sun.lightColor!
+        sunData.direction = scene.sun.forwards!
+        renderEncoder?.setFragmentBytes(&sunData, length: MemoryLayout<DirectionLight>.stride, index: 0)
         
         // Set Texture
         renderEncoder?.setFragmentTexture(material.texture, index: 0)

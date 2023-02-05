@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E44064E3298D74A900421A0B /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44064E2298D74A900421A0B /* Material.swift */; };
 		E44064E5298D771F00421A0B /* ColorChecker.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E44064E4298D771F00421A0B /* ColorChecker.jpg */; };
+		E44064E8298FDBC600421A0B /* grid.obj in Resources */ = {isa = PBXBuildFile; fileRef = E44064E6298FDBC600421A0B /* grid.obj */; };
+		E44064E9298FDBC600421A0B /* grid.mtl in Resources */ = {isa = PBXBuildFile; fileRef = E44064E7298FDBC600421A0B /* grid.mtl */; };
 		E4A38E2F2987232600BD49E2 /* LoadMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A38E2E2987232600BD49E2 /* LoadMesh.swift */; };
 		E4A38E3329872D6B00BD49E2 /* monkey.mtl in Resources */ = {isa = PBXBuildFile; fileRef = E4A38E3129872D6B00BD49E2 /* monkey.mtl */; };
 		E4A38E3429872D6B00BD49E2 /* monkey.obj in Resources */ = {isa = PBXBuildFile; fileRef = E4A38E3229872D6B00BD49E2 /* monkey.obj */; };
@@ -34,6 +36,8 @@
 /* Begin PBXFileReference section */
 		E44064E2298D74A900421A0B /* Material.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
 		E44064E4298D771F00421A0B /* ColorChecker.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ColorChecker.jpg; sourceTree = "<group>"; };
+		E44064E6298FDBC600421A0B /* grid.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grid.obj; sourceTree = "<group>"; };
+		E44064E7298FDBC600421A0B /* grid.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grid.mtl; sourceTree = "<group>"; };
 		E4A38E2E2987232600BD49E2 /* LoadMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMesh.swift; sourceTree = "<group>"; };
 		E4A38E3129872D6B00BD49E2 /* monkey.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = monkey.mtl; sourceTree = "<group>"; };
 		E4A38E3229872D6B00BD49E2 /* monkey.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = monkey.obj; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 		E4A38E3029872C8900BD49E2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E44064E7298FDBC600421A0B /* grid.mtl */,
+				E44064E6298FDBC600421A0B /* grid.obj */,
 				E4A38E3A29872F4000BD49E2 /* monkey_hd.mtl */,
 				E4A38E3929872F4000BD49E2 /* monkey_hd.obj */,
 				E4A38E3529872F0700BD49E2 /* crash.mtl */,
@@ -198,7 +204,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4A38E3B29872F4000BD49E2 /* monkey_hd.obj in Resources */,
+				E44064E8298FDBC600421A0B /* grid.obj in Resources */,
 				E4C8D86B29834071008EB4C7 /* Preview Assets.xcassets in Resources */,
+				E44064E9298FDBC600421A0B /* grid.mtl in Resources */,
 				E4A38E3329872D6B00BD49E2 /* monkey.mtl in Resources */,
 				E4A38E3729872F0700BD49E2 /* crash.mtl in Resources */,
 				E4A38E3829872F0700BD49E2 /* crash.obj in Resources */,

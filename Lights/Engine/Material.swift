@@ -17,7 +17,7 @@ class Material {
         }
         
         let options: [MTKTextureLoader.Option : Any] = [
-            .SRGB: false
+            .SRGB: true
         ]
         
         do {

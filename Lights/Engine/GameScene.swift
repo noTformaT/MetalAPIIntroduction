@@ -15,6 +15,8 @@ class GameScene:ObservableObject {
     @Published var player: Entity
     @Published var actors: [Entity]
     
+    var sun: Entity
+    
     init() {
 //        player = Camera(
 //            position: [0, 0.0, 0.0],
@@ -23,10 +25,12 @@ class GameScene:ObservableObject {
 //        )
         self.player = Entity()
         self.actors = []
+        self.sun = Entity()
+        
+        self.sun.AddDirectionLightComponent(eulers: [0, 0, 0], color: [1.0, 1.0, 1.0])
+        self.sun.update()
         
         self.player.addCameraComponent(position: [0, 0, 0], eulers: [0, 0, 0])
-        
-        
         
         let newMesh = Entity()
         newMesh.addTransformComponent(position: [0, 0, 6.0], eulers: [0, 180.0, 0.0])
@@ -40,7 +44,7 @@ class GameScene:ObservableObject {
         for act in actors {
             
             act.update()
-            
+            act.addRotation(rotaion: [0, 1.0, 0.0])
         }
         
     }

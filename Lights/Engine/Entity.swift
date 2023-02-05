@@ -21,9 +21,21 @@ class Entity {
     var up: vector_float3?
     var view: matrix_float4x4?
     
+    var hasLightComponent:Bool
+    var lightColor: vector_float3?
+    var lightType: LightType?
+    
     init() {
         self.hasCameraComponent = false
         self.hasTransformComponent =  false
+        self.hasLightComponent = false
+    }
+    
+    func AddDirectionLightComponent(eulers: simd_float3, color: simd_float3) {
+        self.hasLightComponent = true
+        self.lightType = Directional
+        self.lightColor = color
+        self.eulers = eulers
     }
     
     func addTransformComponent(position: simd_float3, eulers: simd_float3) {
@@ -69,22 +81,38 @@ class Entity {
             
             view = Matrix44.create_lookat(eye: position!, target: position! + forwards!, up: up!)
         }
+        
+        if hasLightComponent {
+            var crx: Float = eulers![2] //yaw
+            var cry: Float = eulers![1] //pitch
+            var crz: Float = eulers![0] //roll
+            
+            crx = crx * .pi / 180.0
+            cry = cry * .pi / 180.0
+            crz = crz * .pi / 180.0
+            
+            forwards = [
+                sin(crx),
+                sin(cry),
+                cos(crx) * cos(cry)
+            ]
+        }
     }
     
-//    func addRotation(rotaion: simd_float3)
-//    {
-//        self.eulers += rotaion
-//
-//        if self.eulers.x > 360 {
-//            self.eulers.x -= 360
-//        }
-//
-//        if self.eulers.z > 360 {
-//            self.eulers.z -= 360
-//        }
-//
-//        if self.eulers.y > 360 {
-//            self.eulers.y -= 360
-//        }
-//    }
+    func addRotation(rotaion: simd_float3)
+    {
+        self.eulers! += rotaion
+
+        if self.eulers!.x > 360 {
+            self.eulers!.x -= 360
+        }
+
+        if self.eulers!.z > 360 {
+            self.eulers!.z -= 360
+        }
+
+        if self.eulers!.y > 360 {
+            self.eulers!.y -= 360
+        }
+    }
 };
