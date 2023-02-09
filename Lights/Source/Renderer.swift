@@ -125,7 +125,9 @@ class Renderer: NSObject, MTKViewDelegate {
         
         // Set Directional/Sun Light Data
         var sunData: DirectionLight = DirectionLight()
-        sunData.color = scene.sun.lightColor!
+        sunData.base.ambientIntensity = 0.1
+        sunData.base.diffuseIntensity = 0.3
+        sunData.base.color = scene.sun.color
         sunData.direction = scene.sun.forwards!
         renderEncoder?.setFragmentBytes(&sunData, length: MemoryLayout<DirectionLight>.stride, index: 0)
         

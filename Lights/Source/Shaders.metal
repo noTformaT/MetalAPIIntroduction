@@ -75,24 +75,56 @@ vertex Fragment vertexShader(const device Vertex *vertexArray [[buffer(0)]],
     return output;
 }
 
+float4 CalcLightByDirection(Light light, float3 direction, Fragment input)
+{
+    float4 ambientColor = float4(light.color, 1.0f) * light.ambientIntensity;
+    float diffuseFactor = max(dot(normalize(input.normal), normalize(-direction)), 0.0);
+    
+    float4 diffuseColor = float4(light.color, 1.0f) * light.diffuseIntensity *  diffuseFactor;
+    
+    float4 specularColor = float4(0.0, 0.0, 0.0, 0.0);
+    
+    if (diffuseFactor > 0.0f)
+    {
+        float3 fragToEye = normalize(input.cameraPosition - input.fragmentPosition);
+        float3 reflectedVertex = reflect((direction), normalize(input.normal));
+
+        float specularFactor = dot(fragToEye, reflectedVertex);
+        if (specularFactor > 0.0f)
+        {
+            specularFactor = pow(specularFactor, 128);
+            specularColor = float4(light.color * 1.0 * specularFactor, 1.0f);
+        }
+    }
+
+    return (ambientColor + diffuseColor + specularColor);
+}
+
+
+float4 CalcDirectionalLight(DirectionLight sun, Fragment input)
+{
+    return CalcLightByDirection(sun.base, sun.direction, input);
+}
+
 // Fragment Shader
 fragment float4 fragmentShader(Fragment input [[stage_in]],
                                texture2d<float> objectTexture [[ texture(0) ]],
                                sampler samplerObject [[ sampler(0)]],
-                               constant DirectionLight &sun [[ buffer(0) ]]) {
+                               constant DirectionLight &sun [[ buffer(0) ]],
+                               constant SpotLight &spotLight [[ buffer(1) ]]) {
     
     //return input.color;
     //return float4(0.0, 1.0, 0.0, 1.0);
     
-    float3 baseColor = float3(objectTexture.sample(samplerObject, input.texcoord));
+    float4 baseColor = float4(objectTexture.sample(samplerObject, input.texcoord));
     
     //ambient
     float a_strength = 0.1;
-    float4 ambientColor = float4(sun.color, 1.0f) * a_strength;
+    float4 ambientColor = float4(sun.base.color, 1.0f) * a_strength;
     
     float diffuseIntensity = 0.3;
     float diffuseFactor = max(dot(normalize(input.normal), normalize(-sun.direction)), 0.0);
-    float4 diffuseColor = float4(sun.color, 1.0f) * diffuseIntensity *  diffuseFactor;
+    float4 diffuseColor = float4(sun.base.color, 1.0f) * diffuseIntensity *  diffuseFactor;
     
     float4 specularColor = float4(0, 0, 0, 0);
     
@@ -107,12 +139,19 @@ fragment float4 fragmentShader(Fragment input [[stage_in]],
         if (specularFactor > 0.0)
         {
             specularFactor = pow(specularFactor, 128);
-            specularColor = float4(sun.color * 1.0 * specularFactor, 1.0);
+            specularColor = float4(sun.base.color * 1.0 * specularFactor, 1.0);
         }
     }
     
+    //baseColor = float4(1, 1, 1, 1);
     
-    float4 finalColor = (ambientColor + diffuseColor + specularColor);
+    
+//    float4 finalColor = specularColor;
+    
+    
+    float4 finalColor = CalcDirectionalLight(sun, input);
+    
+    
     
     return finalColor;
 }

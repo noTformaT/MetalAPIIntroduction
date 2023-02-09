@@ -11,6 +11,7 @@
 		E44064E5298D771F00421A0B /* ColorChecker.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E44064E4298D771F00421A0B /* ColorChecker.jpg */; };
 		E44064E8298FDBC600421A0B /* grid.obj in Resources */ = {isa = PBXBuildFile; fileRef = E44064E6298FDBC600421A0B /* grid.obj */; };
 		E44064E9298FDBC600421A0B /* grid.mtl in Resources */ = {isa = PBXBuildFile; fileRef = E44064E7298FDBC600421A0B /* grid.mtl */; };
+		E445C033299540F400E666B6 /* Light.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445C032299540F400E666B6 /* Light.swift */; };
 		E4A38E2F2987232600BD49E2 /* LoadMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A38E2E2987232600BD49E2 /* LoadMesh.swift */; };
 		E4A38E3329872D6B00BD49E2 /* monkey.mtl in Resources */ = {isa = PBXBuildFile; fileRef = E4A38E3129872D6B00BD49E2 /* monkey.mtl */; };
 		E4A38E3429872D6B00BD49E2 /* monkey.obj in Resources */ = {isa = PBXBuildFile; fileRef = E4A38E3229872D6B00BD49E2 /* monkey.obj */; };
@@ -38,6 +39,7 @@
 		E44064E4298D771F00421A0B /* ColorChecker.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ColorChecker.jpg; sourceTree = "<group>"; };
 		E44064E6298FDBC600421A0B /* grid.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grid.obj; sourceTree = "<group>"; };
 		E44064E7298FDBC600421A0B /* grid.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grid.mtl; sourceTree = "<group>"; };
+		E445C032299540F400E666B6 /* Light.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Light.swift; sourceTree = "<group>"; };
 		E4A38E2E2987232600BD49E2 /* LoadMesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMesh.swift; sourceTree = "<group>"; };
 		E4A38E3129872D6B00BD49E2 /* monkey.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = monkey.mtl; sourceTree = "<group>"; };
 		E4A38E3229872D6B00BD49E2 /* monkey.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = monkey.obj; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				E4AD1F5E29869EE4001A505C /* Mesh.swift */,
 				E4A38E2E2987232600BD49E2 /* LoadMesh.swift */,
 				E44064E2298D74A900421A0B /* Material.swift */,
+				E445C032299540F400E666B6 /* Light.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				E4C8D8A529860CC4008EB4C7 /* TriangleMesh.swift in Sources */,
 				E4C8D87229834148008EB4C7 /* Renderer.swift in Sources */,
 				E4C8D89A2984297A008EB4C7 /* AppView.swift in Sources */,
+				E445C033299540F400E666B6 /* Light.swift in Sources */,
 				E4C8D8642983406F008EB4C7 /* Application.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,7 +33,7 @@ class Entity {
     
     func AddDirectionLightComponent(eulers: simd_float3, color: simd_float3) {
         self.hasLightComponent = true
-        self.lightType = Directional
+        self.lightType = DIRECTIONAL_LIGHT
         self.lightColor = color
         self.eulers = eulers
     }
