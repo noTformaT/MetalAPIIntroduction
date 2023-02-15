@@ -113,45 +113,12 @@ fragment float4 fragmentShader(Fragment input [[stage_in]],
                                constant DirectionLight &sun [[ buffer(0) ]],
                                constant SpotLight &spotLight [[ buffer(1) ]]) {
     
-    //return input.color;
-    //return float4(0.0, 1.0, 0.0, 1.0);
     
-    float4 baseColor = float4(objectTexture.sample(samplerObject, input.texcoord));
+    //float4 finalColor = float4(0, 0, 0, 0);
     
-    //ambient
-    float a_strength = 0.1;
-    float4 ambientColor = float4(sun.base.color, 1.0f) * a_strength;
-    
-    float diffuseIntensity = 0.3;
-    float diffuseFactor = max(dot(normalize(input.normal), normalize(-sun.direction)), 0.0);
-    float4 diffuseColor = float4(sun.base.color, 1.0f) * diffuseIntensity *  diffuseFactor;
-    
-    float4 specularColor = float4(0, 0, 0, 0);
-    
-    if (diffuseFactor > 0.0)
-    {
-        float3 fragToEye = normalize(input.cameraPosition - input.fragmentPosition);
-        //float3 reflectedVertex = normalize(-sun.direction + fragToEye);
-        float3 reflectedVertex = normalize(reflect(sun.direction, normalize(input.normal)));
-        
-        float specularFactor = dot(fragToEye, reflectedVertex);
-        
-        if (specularFactor > 0.0)
-        {
-            specularFactor = pow(specularFactor, 128);
-            specularColor = float4(sun.base.color * 1.0 * specularFactor, 1.0);
-        }
-    }
-    
-    //baseColor = float4(1, 1, 1, 1);
-    
-    
-//    float4 finalColor = specularColor;
-    
-    
-    float4 finalColor = CalcDirectionalLight(sun, input);
+    float4 directionLights = CalcDirectionalLight(sun, input);
     
     
     
-    return finalColor;
+    return directionLights;
 }

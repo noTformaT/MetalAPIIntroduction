@@ -20,6 +20,8 @@
 		E4A38E3B29872F4000BD49E2 /* monkey_hd.obj in Resources */ = {isa = PBXBuildFile; fileRef = E4A38E3929872F4000BD49E2 /* monkey_hd.obj */; };
 		E4A38E3C29872F4000BD49E2 /* monkey_hd.mtl in Resources */ = {isa = PBXBuildFile; fileRef = E4A38E3A29872F4000BD49E2 /* monkey_hd.mtl */; };
 		E4AD1F5F29869EE4001A505C /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AD1F5E29869EE4001A505C /* Mesh.swift */; };
+		E4BBC0F4299D31B30080B765 /* ground.mtl in Resources */ = {isa = PBXBuildFile; fileRef = E4BBC0F2299D31B20080B765 /* ground.mtl */; };
+		E4BBC0F5299D31B30080B765 /* ground.obj in Resources */ = {isa = PBXBuildFile; fileRef = E4BBC0F3299D31B30080B765 /* ground.obj */; };
 		E4C8D8642983406F008EB4C7 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8D8632983406F008EB4C7 /* Application.swift */; };
 		E4C8D8662983406F008EB4C7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8D8652983406F008EB4C7 /* ContentView.swift */; };
 		E4C8D86829834071008EB4C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4C8D86729834071008EB4C7 /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 		E4A38E3929872F4000BD49E2 /* monkey_hd.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = monkey_hd.obj; sourceTree = "<group>"; };
 		E4A38E3A29872F4000BD49E2 /* monkey_hd.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = monkey_hd.mtl; sourceTree = "<group>"; };
 		E4AD1F5E29869EE4001A505C /* Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
+		E4BBC0F2299D31B20080B765 /* ground.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ground.mtl; sourceTree = "<group>"; };
+		E4BBC0F3299D31B30080B765 /* ground.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ground.obj; sourceTree = "<group>"; };
 		E4C8D8602983406F008EB4C7 /* HelloTriangleIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloTriangleIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C8D8632983406F008EB4C7 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		E4C8D8652983406F008EB4C7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 				E4A38E3629872F0700BD49E2 /* crash.obj */,
 				E4A38E3129872D6B00BD49E2 /* monkey.mtl */,
 				E4A38E3229872D6B00BD49E2 /* monkey.obj */,
+				E4BBC0F2299D31B20080B765 /* ground.mtl */,
+				E4BBC0F3299D31B30080B765 /* ground.obj */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -210,10 +216,12 @@
 				E44064E8298FDBC600421A0B /* grid.obj in Resources */,
 				E4C8D86B29834071008EB4C7 /* Preview Assets.xcassets in Resources */,
 				E44064E9298FDBC600421A0B /* grid.mtl in Resources */,
+				E4BBC0F4299D31B30080B765 /* ground.mtl in Resources */,
 				E4A38E3329872D6B00BD49E2 /* monkey.mtl in Resources */,
 				E4A38E3729872F0700BD49E2 /* crash.mtl in Resources */,
 				E4A38E3829872F0700BD49E2 /* crash.obj in Resources */,
 				E4A38E3429872D6B00BD49E2 /* monkey.obj in Resources */,
+				E4BBC0F5299D31B30080B765 /* ground.obj in Resources */,
 				E4A38E3C29872F4000BD49E2 /* monkey_hd.mtl in Resources */,
 				E44064E5298D771F00421A0B /* ColorChecker.jpg in Resources */,
 				E4C8D86829834071008EB4C7 /* Assets.xcassets in Resources */,

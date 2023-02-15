@@ -14,6 +14,7 @@ class GameScene:ObservableObject {
     
     @Published var player: Entity
     @Published var actors: [Entity]
+    var groundTiles: [Entity]
     
     var sun: Light
     var spotLight: Light
@@ -28,17 +29,23 @@ class GameScene:ObservableObject {
         self.actors = []
         
         self.sun = Light(color: [1.0, 1.0, 1.0])
-        self.sun.declareDirectional(eulers: [0, 0, 0])
+        self.sun.declareDirectional(eulers: [0, -90, 0])
         self.sun.update()
         
         self.spotLight = Light(color: [0.0, 1.0, 0.0])
         self.spotLight.declareDirectional(eulers: [0, 0, 0])
+        
+        self.groundTiles = []
         
         self.player.addCameraComponent(position: [0, 0, 0], eulers: [0, 0, 0])
         
         let newMesh = Entity()
         newMesh.addTransformComponent(position: [0, 0, 6.0], eulers: [0, 180.0, 0.0])
         actors.append(newMesh)
+        
+        let newTile = Entity()
+        newTile.addTransformComponent(position: [0.0, -2.0, 6.0], eulers: [0.0, 0.0, 0.0])
+        groundTiles.append(newTile)
     }
     
     func update() {
@@ -49,6 +56,10 @@ class GameScene:ObservableObject {
             
             act.update()
             act.addRotation(rotaion: [0, 1.0, 0.0])
+        }
+        
+        for act in groundTiles {
+            act.update()
         }
         
         spotLight.update()

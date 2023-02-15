@@ -19,11 +19,16 @@ class Renderer: NSObject, MTKViewDelegate {
     var metalDevice: MTLDevice!
     var metalCommandQueue: MTLCommandQueue!
     let pipelineState: MTLRenderPipelineState
+    
     var scene: GameScene
     let mesh: LoadMesh
+    let groundMesh: LoadMesh
+    
+    let material: Material
+    let groundMaterial: Material
+    
     let allocator: MTKMeshBufferAllocator
     let materialLoader: MTKTextureLoader
-    let material: Material
     let depthStencilState: MTLDepthStencilState
     
     init (_ parent: ContentView, scene: GameScene) {
@@ -43,9 +48,11 @@ class Renderer: NSObject, MTKViewDelegate {
         // Create Texture Loader/Allocator
         self.materialLoader = MTKTextureLoader(device: metalDevice)
         material = Material(device: metalDevice, allocator: self.materialLoader, fileName: "ColorChecker")
+        groundMaterial = Material(device: metalDevice, allocator: self.materialLoader, fileName: "ColorChecker")
         
         // Create triangle Mesh
         mesh = LoadMesh(device: metalDevice, allocator: allocator, fileName: "crash")
+        groundMesh = LoadMesh(device: metalDevice, allocator: allocator, fileName: "ground")
         
         // Create Metal Pipeline Descriptor
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
@@ -131,19 +138,40 @@ class Renderer: NSObject, MTKViewDelegate {
         sunData.direction = scene.sun.forwards!
         renderEncoder?.setFragmentBytes(&sunData, length: MemoryLayout<DirectionLight>.stride, index: 0)
         
+        // draw actors
+        
         // Set Texture
         renderEncoder?.setFragmentTexture(material.texture, index: 0)
         
         // Set TextureSampler
         renderEncoder?.setFragmentSamplerState(material.sampler, index: 0)
         
-        //renderEncoder?.setCullMode(.back)
-        
         renderEncoder?.setVertexBuffer(mesh.metalMesh.vertexBuffers[0].buffer, offset: 0, index: 0)
         for act in scene.actors {
             renderEncoder?.setVertexBytes(&(act.model!), length: MemoryLayout<matrix_float4x4>.stride, index: 1)
             
             for submesh in mesh.metalMesh.submeshes {
+                renderEncoder?.drawIndexedPrimitives(
+                    type: .triangle,
+                    indexCount: submesh.indexCount,
+                    indexType: submesh.indexType,
+                    indexBuffer: submesh.indexBuffer.buffer,
+                    indexBufferOffset: submesh.indexBuffer.offset
+                )
+            }
+        }
+        
+        
+        // draw ground tiles
+        
+        renderEncoder?.setFragmentTexture(groundMaterial.texture, index: 0) // Set texture
+        renderEncoder?.setFragmentSamplerState(groundMaterial.sampler, index: 0) // Set TextureSampler
+        renderEncoder?.setVertexBuffer(groundMesh.metalMesh.vertexBuffers[0].buffer, offset: 0, index: 0) // Set vertex buffer
+        
+        for act in scene.groundTiles {
+            renderEncoder?.setVertexBytes(&(act.model!), length: MemoryLayout<matrix_float4x4>.stride, index: 1)
+            
+            for submesh in groundMesh.metalMesh.submeshes {
                 renderEncoder?.drawIndexedPrimitives(
                     type: .triangle,
                     indexCount: submesh.indexCount,
